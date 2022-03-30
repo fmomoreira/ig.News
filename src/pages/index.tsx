@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { SubscribeButton } from '../components/SubscribeButton';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 
 import styles from './home.module.scss';
 
@@ -40,7 +40,7 @@ export default function Home({ product}: HomeProps) {
 }
 
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const price = await stripe.prices.retrieve('price_1Kj6KEC6JMZ5zLaG1jnR0Q97')
 
   const product =  {
@@ -49,13 +49,13 @@ export const getStaticProps: GetStaticProps = async () => {
       style: 'currency',
       currency: 'BRL'
     }).format(price.unit_amount / 100)
-  }
+  };
+
   return {
     props: {
      product
-    },
+    }
 
-    revalidade:  60 * 60 * 24
 
   }
 }
